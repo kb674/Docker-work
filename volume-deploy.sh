@@ -11,7 +11,10 @@ docker build -t trio-db db
 docker build -t trio-app flask-app
 
 # run the db container
-docker run -d --name mysql --network trio-network --volume trio-db-volume:/var/lib/mysql trio-db
+docker run -d --name mysql --network trio-network --volume trio-db-volume:/var/lib/mysql \
+-e MYSQL_DATABASE=flask-db \
+-e MYSQL_ROOT_PASSWORD=password \
+trio-db
 
 # run the flask app container
 docker run -d --name flask-app --network trio-network trio-app
